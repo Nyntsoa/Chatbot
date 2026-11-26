@@ -1,0 +1,22 @@
+CALENDRIER UNIVERSITAIRE ET EMPLOI DU TEMPS
+Promotion Licence Informatique & IA (L2)
+
+1. CALENDRIER DU SEMESTRE 4 (Printemps 2026) :
+- Rentrée pédagogique du semestre : Lundi 12 janvier 2026 à 09h00.
+- Période des cours et TP : Du 12 janvier 2026 au 17 avril 2026.
+- Vacances d'hiver : Du samedi 14 février au dimanche 22 février 2026.
+- Vacances de printemps : Du samedi 11 avril au dimanche 26 avril 2026.
+- Examens finaux (Session 1) : Du lundi 4 mai au vendredi 15 mai 2026.
+- Délibération des jurys de première session : Vendredi 29 mai 2026.
+- Épreuves de rattrapage (Session 2) : Du lundi 15 juin au vendredi 26 juin 2026.
+
+2. CRÉNEAUX HORAIRES ET PAUSES QUOTIDIENNES :
+- Cours du matin : 08h30 - 10h00 puis 10h15 - 11h45 (Pause de 15 minutes à 10h00).
+- Pause méridienne / déjeuner : 11h45 - 13h15 (Accès au restaurant universitaire).
+- Cours de l'après-midi : 13h15 - 14h45 puis 15h00 - 16h30 (Pause de 15 minutes à 14h45).
+- Créneaux de soutien et travail en autonomie : 16h45 - 18h00.
+
+3. SÉANCES HEBDOMADAIRES SPÉCIFIQUES :
+- Travaux Pratiques Intelligence Artificielle : Tous les mardis après-midi de 13h15 à 16h30 en Salle Machine B204.
+- Projet Informatique Tutoré : Le jeudi après-midi de 14h00 à 17h00 en salle libre ou FabLab.
+- Permanence pédagogique des enseignants-chercheurs : Tous les vendredis de 11h00 à 12h00 au bureau 112.

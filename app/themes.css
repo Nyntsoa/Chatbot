@@ -1,0 +1,122 @@
+/* Visual tokens apply to Streamlit controls and to portals rendered outside the main column. */
+:root {
+    color-scheme: var(--gb-scheme);
+}
+
+:root :is(.stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"],
+    [data-testid="stHeader"], [data-testid="stBottom"]) {
+    color: var(--gb-ink);
+    background-color: var(--gb-ground);
+}
+
+:root [data-testid="stSidebar"] {
+    color: var(--gb-ink);
+    background-color: var(--gb-field);
+}
+
+:root .stApp :is(h1, h2, h3, h4, label, legend, [data-testid="stText"], [data-testid="stMarkdownContainer"]):not([data-testid="stAlert"] *, button *, a *) {
+    color: var(--gb-ink);
+}
+
+:root .stApp [data-testid="stCaptionContainer"] p {
+    color: var(--gb-muted);
+}
+
+:root .stApp a:not([data-testid="stBaseButton-secondary"]) {
+    color: var(--gb-accent);
+}
+
+:root :is(.st-key-main_view, .st-key-discussion_context, .st-key-library_index,
+    .st-key-library_reader, .st-key-library_preview, [data-testid="stChatMessage"],
+    [data-testid="stForm"], [data-testid="stExpander"] details) {
+    background-color: var(--gb-surface);
+    border-color: var(--gb-border);
+}
+
+:root :is([data-baseweb="input"], [data-baseweb="base-input"],
+    [data-baseweb="textarea"], [data-baseweb="select"] > div:first-child,
+    [data-testid="stTextInputRootElement"],
+    [data-testid="stSelectbox"] [role="group"]:has([role="combobox"]),
+    [data-testid="stTextArea"] textarea,
+    [data-testid="stChatInput"] > div:first-child) {
+    color: var(--gb-ink);
+    background-color: var(--gb-field);
+    border-color: var(--gb-border);
+}
+
+:root :is([data-baseweb="input"], [data-baseweb="textarea"], [data-baseweb="select"],
+    [data-testid="stTextInput"], [data-testid="stTextArea"], [data-testid="stSelectbox"],
+    [data-testid="stChatInput"]) :is(input, textarea, button, svg) {
+    color: var(--gb-ink);
+    caret-color: var(--gb-ink);
+}
+
+:root :is([data-baseweb="input"], [data-baseweb="textarea"], [data-testid="stChatInput"],
+    [data-testid="stTextInput"], [data-testid="stTextArea"], [data-testid="stSelectbox"])
+    :is(input, textarea)::placeholder {
+    color: var(--gb-muted);
+    opacity: 1;
+}
+
+:root :is([data-baseweb="select"], [data-testid="stExpander"] summary) :is(span, p, svg) {
+    color: var(--gb-ink);
+}
+
+:root :is([data-baseweb="menu"], [role="listbox"], [data-testid="stDialog"] [role="dialog"],
+    [data-testid="stPopoverBody"], [data-testid="stTooltipContent"]) {
+    color: var(--gb-ink);
+    background-color: var(--gb-surface);
+}
+
+:root :is([role="option"], [role="menuitem"]) {
+    color: var(--gb-ink);
+    background-color: var(--gb-surface);
+}
+
+:root :is([role="option"], [role="menuitem"]):is(:hover, :focus-visible, [aria-selected="true"]) {
+    background-color: var(--gb-field);
+}
+
+:root button:is([data-testid^="stBaseButton"], [data-variant]) {
+    color: var(--gb-ink);
+    background-color: var(--gb-surface);
+    border-color: var(--gb-border);
+}
+
+:root :is(button[data-testid^="stBaseButton"], button[data-variant], [data-testid="stLinkButton"] a):hover {
+    color: var(--gb-ink);
+    background-color: var(--gb-field);
+    border-color: var(--gb-accent);
+}
+
+:root button:is([data-testid^="stBaseButton-primary"], [data-variant="primary"]),
+:root button:is([data-testid^="stBaseButton-primary"], [data-variant="primary"]):hover {
+    color: var(--gb-on-accent);
+    background-color: var(--gb-accent);
+    border-color: var(--gb-accent);
+}
+
+:root button:is([data-testid^="stBaseButton-primary"], [data-variant="primary"]):hover {
+    background-color: color-mix(in srgb, var(--gb-accent) 86%, var(--gb-ink));
+}
+
+:root button:is([data-testid^="stBaseButton-tertiary"], [data-variant="tertiary"]):not(:hover) {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+:root :is(.st-key-main_view, .st-key-chosen_domain) button:is([aria-pressed="true"], [aria-checked="true"]) {
+    color: var(--gb-accent);
+    background-color: var(--gb-field);
+    border-color: var(--gb-accent);
+}
+
+:root :is(.stApp, [role="listbox"]) :focus-visible {
+    outline: 2px solid var(--gb-accent);
+    outline-offset: 2px;
+}
+
+:root .st-key-appearance_panel {
+    background-color: var(--gb-surface);
+    border-color: var(--gb-border);
+}

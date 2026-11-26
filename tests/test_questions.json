@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "category": "Reglement",
+    "question": "Quels sont les horaires d'ouverture et de fermeture des cours ?",
+    "expected_keywords": ["08h00", "17h30", "horaire"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 2,
+    "category": "Reglement",
+    "question": "Quel est le délai maximum pour déposer un justificatif d'absence médicale ?",
+    "expected_keywords": ["48 heures", "scolarité", "justificatif"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 3,
+    "category": "Reglement",
+    "question": "À partir de combien de minutes un retard est-il considéré comme une absence injustifiée ?",
+    "expected_keywords": ["15 minutes", "retard", "injustifiée"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 4,
+    "category": "Reglement",
+    "question": "La présence est-elle obligatoire en cours magistral ?",
+    "expected_keywords": ["recommandée", "présence", "cours magistraux"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 5,
+    "category": "Reglement",
+    "question": "Que se passe-t-il si un étudiant accumule plus de 3 absences non justifiées dans une matière ?",
+    "expected_keywords": ["défaillant", "rattrapage", "3 absences"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 6,
+    "category": "Reglement",
+    "question": "Quel document d'identité doit-on présenter pour entrer en salle d'examen ?",
+    "expected_keywords": ["carte étudiante", "obligatoire", "examen"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 7,
+    "category": "Reglement",
+    "question": "Où doivent être rangés les téléphones portables pendant les épreuves ?",
+    "expected_keywords": ["éteints", "sacs", "fond de la salle"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 8,
+    "category": "Reglement",
+    "question": "L'usage des IA génératives est-il autorisé lors des examens sur table ?",
+    "expected_keywords": ["fraude", "discipline", "non autorisé"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 9,
+    "category": "Reglement",
+    "question": "Peut-on rester dans les salles de travaux pratiques après 19h00 ?",
+    "expected_keywords": ["fermeture", "autorisation", "19h00"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 10,
+    "category": "Reglement",
+    "question": "Quelles sont les sanctions possibles en cas de tricherie ?",
+    "expected_keywords": ["blâme", "exclusion", "discipline"],
+    "reference_doc": "reglement_interieur.txt"
+  },
+  {
+    "id": 11,
+    "category": "Emploi du temps",
+    "question": "À quelle date a lieu la rentrée pédagogique du semestre 4 ?",
+    "expected_keywords": ["12 janvier 2026", "rentrée", "09h00"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 12,
+    "category": "Emploi du temps",
+    "question": "Quand ont lieu les vacances d'hiver pour la promotion L2 ?",
+    "expected_keywords": ["14 février", "22 février", "vacances d'hiver"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 13,
+    "category": "Emploi du temps",
+    "question": "Quelles sont les dates de la session 1 des examens finaux ?",
+    "expected_keywords": ["4 mai", "15 mai", "examens finaux"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 14,
+    "category": "Emploi du temps",
+    "question": "Quand se dérouleront les épreuves de rattrapage en session 2 ?",
+    "expected_keywords": ["15 juin", "26 juin", "rattrapage"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 15,
+    "category": "Emploi du temps",
+    "question": "Quel est le créneau horaire prévu pour la pause déjeuner ?",
+    "expected_keywords": ["11h45", "13h15", "pause", "déjeuner"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 16,
+    "category": "Emploi du temps",
+    "question": "À quel horaire se déroulent les TP d'Intelligence Artificielle le mardi ?",
+    "expected_keywords": ["13h15", "16h30", "mardi", "B204"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 17,
+    "category": "Emploi du temps",
+    "question": "Dans quelle salle sont programmés les TP d'IA ?",
+    "expected_keywords": ["B204", "Machine", "salle"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 18,
+    "category": "Emploi du temps",
+    "question": "Quand a lieu la séance de projet informatique tutoré ?",
+    "expected_keywords": ["jeudi", "14h00", "17h00"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 19,
+    "category": "Emploi du temps",
+    "question": "Quand les enseignants tiennent-ils leur permanence pédagogique hebdomadaire ?",
+    "expected_keywords": ["vendredi", "11h00", "12h00", "112"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 20,
+    "category": "Emploi du temps",
+    "question": "À quelle date sont prévues les délibérations des jurys pour la session 1 ?",
+    "expected_keywords": ["29 mai 2026", "délibération", "jury"],
+    "reference_doc": "emploi_du_temps.txt"
+  },
+  {
+    "id": 21,
+    "category": "Procedures",
+    "question": "À quelle adresse e-mail doit-on signaler une absence dès le premier jour ?",
+    "expected_keywords": ["scolarite@ecole.fr", "absence", "e-mail"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 22,
+    "category": "Procedures",
+    "question": "Comment savoir si mon justificatif d'absence a bien été validé par l'administration ?",
+    "expected_keywords": ["portail", "justifié", "statut"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 23,
+    "category": "Procedures",
+    "question": "Doit-on s'inscrire manuellement aux épreuves de rattrapage ?",
+    "expected_keywords": ["automatique", "rattrapage", "inscription"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 24,
+    "category": "Procedures",
+    "question": "Combien de jours avant les examens les convocations sont-elles publiées sur l'ENT ?",
+    "expected_keywords": ["10 jours", "ouvrés", "convocations", "ENT"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 25,
+    "category": "Procedures",
+    "question": "Quel est le délai requis pour faire signer une convention avant le début du stage ?",
+    "expected_keywords": ["3 semaines", "convention", "stage"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 26,
+    "category": "Procedures",
+    "question": "Quelle est la durée minimale obligatoire du stage de L2 ?",
+    "expected_keywords": ["6 semaines", "durée", "stage"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 27,
+    "category": "Procedures",
+    "question": "Qui a le droit de demander un Régime Spécial d'Études (RSE) ?",
+    "expected_keywords": ["salariés", "handicap", "sportifs", "artistes"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 28,
+    "category": "Procedures",
+    "question": "Avant quelle semaine du semestre doit-on déposer une demande d'aménagement RSE ?",
+    "expected_keywords": ["3ème semaine", "semestre", "RSE"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 29,
+    "category": "Procedures",
+    "question": "Qui doit obligatoirement valider le sujet d'un stage étudiant ?",
+    "expected_keywords": ["responsable pédagogique", "validation", "sujet"],
+    "reference_doc": "procedures_etudiantes.txt"
+  },
+  {
+    "id": 30,
+    "category": "Procedures",
+    "question": "Combien d'heures par semaine un étudiant doit-il travailler au minimum pour demander le RSE salarié ?",
+    "expected_keywords": ["10 heures", "salarié", "semaine"],
+    "reference_doc": "procedures_etudiantes.txt"
+  }
+]

@@ -1,0 +1,356 @@
+.stMainBlockContainer {
+    max-width: 71rem;
+    padding: 3.75rem 2rem 5rem;
+}
+
+.st-key-guidebot_masthead {
+    gap: .65rem;
+    align-items: center;
+    margin-block-end: .2rem;
+}
+
+.st-key-guidebot_masthead h1 {
+    font-size: 1.75rem;
+    font-weight: 680;
+    letter-spacing: -.045em;
+    padding-block: .3rem;
+}
+
+.st-key-auth_scope {
+    margin: clamp(0rem, 3vw, 2.75rem) auto 0;
+    max-width: 61rem;
+}
+
+.st-key-auth_layout {
+    margin-top: .8rem;
+}
+
+.st-key-auth_form_panel [data-testid="stVerticalBlockBorderWrapper"],
+.st-key-auth_form_panel [data-testid="stForm"] {
+    border-radius: .65rem;
+}
+
+.st-key-auth_form_panel [data-testid="stForm"] {
+    border: 0;
+    padding: 0;
+}
+
+.gb-intro {
+    padding: 1.65rem .8rem 0 0;
+}
+
+.gb-intro h2 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    letter-spacing: -.035em;
+    line-height: 1.18;
+    padding: 0;
+    margin: 0 0 .7rem;
+}
+
+.gb-intro p, .gb-intro dd {
+    color: color-mix(in srgb, currentColor 83%, transparent);
+    line-height: 1.55;
+}
+
+.gb-intro dl {
+    margin: 1.7rem 0 0;
+    padding: 0;
+}
+
+.gb-intro dl > div {
+    border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    padding: .8rem 0;
+}
+
+.gb-intro dt {
+    font-weight: 650;
+}
+
+.gb-intro dd {
+    margin: .15rem 0 0;
+}
+
+.st-key-main_view button, .st-key-auth_mode button {
+    font-weight: 600;
+}
+
+.st-key-chat_intro {
+    border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+    padding: .1rem 0 .75rem;
+}
+
+.st-key-chat_intro h2, .st-key-auth_form_panel h2 {
+    font-size: clamp(1.55rem, 3vw, 1.95rem);
+    letter-spacing: -.03em;
+    padding-block: 0 .15rem;
+}
+
+.st-key-chat_shortcuts button {
+    justify-content: flex-start;
+    text-align: start;
+    border-radius: .55rem;
+    padding-block: .65rem;
+}
+
+.st-key-chat_shortcuts button:hover {
+    background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+[data-testid="stChatMessage"] {
+    border-radius: .65rem;
+    border: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+    padding: .8rem 1rem;
+    min-width: 0;
+}
+
+.st-key-library_preview {
+    padding: .9rem 1rem;
+    border-radius: .6rem;
+    background: color-mix(in srgb, currentColor 4%, transparent);
+    max-height: 27rem;
+    overflow-y: auto;
+}
+
+.stButton button, .stFormSubmitButton button, .stDownloadButton button,
+.stLinkButton a, .st-key-main_view button, .st-key-chosen_domain button,
+.st-key-auth_mode button {
+    min-height: 2.75rem;
+}
+
+button[data-testid^="stBaseButton-primary"] {
+    color: white;
+    background-color: #1d5fbf;
+    border-color: #1d5fbf;
+}
+
+button[data-testid^="stBaseButton-primary"]:hover {
+    color: white;
+    background-color: #164a96;
+    border-color: #164a96;
+}
+
+@media (max-width: 720px) {
+    .stMainBlockContainer {
+        padding: 3.2rem 1rem 4rem;
+    }
+
+    .st-key-auth_scope {
+        max-width: 32rem;
+    }
+
+    .st-key-auth_layout [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .st-key-auth_layout [data-testid="stColumn"] {
+        width: 100%;
+        flex: auto;
+    }
+
+    .gb-intro {
+        padding: 0;
+    }
+
+    .st-key-chat_intro {
+        padding-bottom: .4rem;
+    }
+
+    .gb-intro dl {
+        display: none;
+    }
+}
+
+/* The navigation frames the reading and research surfaces. */
+.st-key-main_view {
+    background: color-mix(in srgb, currentColor 5%, transparent);
+    border: 1px solid color-mix(in srgb, currentColor 13%, transparent);
+    border-radius: .75rem;
+    padding: .4rem .5rem;
+    margin-bottom: .65rem;
+}
+
+.st-key-main_view button {
+    border-color: transparent;
+    border-radius: .45rem;
+    margin-inline: 1px;
+    scroll-margin-top: 4.25rem;
+}
+
+.st-key-main_view button[aria-pressed="true"] {
+    border-color: currentColor;
+}
+
+.st-key-discussion_content,
+.st-key-library_reader {
+    min-width: 0;
+}
+
+.st-key-discussion_context,
+.st-key-library_index,
+.st-key-library_reader {
+    border-radius: .75rem;
+    background: color-mix(in srgb, currentColor 3%, transparent);
+}
+
+.st-key-discussion_context h3 {
+    font-size: 1.125rem;
+    padding: 0;
+}
+
+.st-key-home_intro {
+    background: linear-gradient(105deg,
+        color-mix(in srgb, var(--gb-accent) 12%, var(--gb-ground)), var(--gb-surface));
+    border-color: color-mix(in srgb, var(--gb-accent) 45%, var(--gb-border));
+    padding: clamp(1rem, 3vw, 2.1rem);
+    border-radius: .85rem;
+}
+
+.st-key-home_intro h2 {
+    font-size: clamp(1.7rem, 3.6vw, 2.35rem);
+    letter-spacing: -.04em;
+    line-height: 1.15;
+}
+
+.st-key-onboarding_panel {
+    max-width: 43rem;
+    margin: clamp(.4rem, 3vw, 2rem) auto;
+    padding: clamp(1rem, 4vw, 2rem);
+    background-color: var(--gb-surface);
+    border-color: var(--gb-border);
+    border-radius: .85rem;
+}
+
+.st-key-onboarding_panel h2 {
+    letter-spacing: -.03em;
+    padding-block-start: 0;
+}
+
+.st-key-onboarding_actions {
+    border-top: 1px solid color-mix(in srgb, var(--gb-border) 48%, transparent);
+    padding-top: .75rem;
+}
+
+.st-key-home_documents, .st-key-home_classes {
+    background-color: var(--gb-surface);
+    border-color: var(--gb-border);
+    border-radius: .75rem;
+}
+
+.st-key-home_documents .stButton button {
+    justify-content: flex-start;
+    text-align: start;
+}
+
+.st-key-discussion_content [data-testid="stChatMessage"] {
+    align-items: flex-start;
+    background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+.st-key-discussion_content [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+    margin-inline-start: clamp(1rem, 4vw, 3rem);
+    background: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.gb-reading {
+    max-width: 72ch;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.gb-reading p {
+    margin: 0;
+}
+
+.gb-reading p + p {
+    margin-block-start: .75rem;
+}
+
+@keyframes gb-settle {
+    from { opacity: .68; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gb-navigation-slide {
+    from { opacity: .78; transform: translateX(var(--gb-navigation-offset)); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .stButton button,
+    .stFormSubmitButton button,
+    .stDownloadButton button,
+    .stLinkButton a,
+    .st-key-main_view button,
+    .st-key-auth_mode button {
+        transition: background-color 170ms ease, border-color 170ms ease,
+            color 170ms ease, transform 120ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .stButton button:active:not(:disabled),
+    .stFormSubmitButton button:active:not(:disabled),
+    .stDownloadButton button:active:not(:disabled),
+    .st-key-main_view button:active:not(:disabled),
+    .st-key-auth_mode button:active:not(:disabled) {
+        transform: scale(.98);
+    }
+
+    .gb-reply-arrival {
+        animation: gb-settle 330ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    [data-testid="stExpander"] details[open] > div {
+        animation: gb-settle 190ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .st-key-auth_form_panel,
+    .st-key-discussion_context,
+    .st-key-library_reader {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 230ms ease-out, transform 230ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    @starting-style {
+        .st-key-auth_form_panel,
+        .st-key-discussion_context,
+        .st-key-library_reader {
+            opacity: .78;
+            transform: translateY(5px);
+        }
+    }
+}
+
+@media (max-width: 760px) {
+    .st-key-home_workspace [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .st-key-home_workspace [data-testid="stColumn"] {
+        width: 100%;
+        flex: auto;
+    }
+    .st-key-discussion_workspace [data-testid="stHorizontalBlock"]:has(.st-key-discussion_context),
+    .st-key-library_workspace [data-testid="stHorizontalBlock"]:has(.st-key-library_index) {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .st-key-discussion_workspace [data-testid="stColumn"],
+    .st-key-library_workspace [data-testid="stColumn"] {
+        width: 100%;
+        flex: auto;
+    }
+
+    .st-key-discussion_content [data-testid="stChatMessage"] {
+        padding: .65rem;
+    }
+
+    .st-key-main_view button {
+        padding-inline: .55rem;
+    }
+}
