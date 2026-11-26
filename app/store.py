@@ -197,27 +197,50 @@ def validate_account(username, password):
 
 
 class Store:
-    def __init__(self, path=DB_PATH, clock=date.today):
-        self.path = Path(path)
+    def __init__(self, path=None, clock=date.today):
+        self.remote_url = os.getenv("TURSO_DATABASE_URL") if path is None else None
+        self.remote_token = os.getenv("TURSO_AUTH_TOKEN") if self.remote_url else None
+        needs_remote = path is None and os.getenv("GUIDEBOT_REQUIRE_REMOTE_DB") == "1"
+        if (needs_remote or self.remote_url) and not (
+            self.remote_url and self.remote_token
+        ):
+            raise ValueError(
+                "Configurez TURSO_DATABASE_URL et TURSO_AUTH_TOKEN pour le stockage permanent."
+            )
+        self.path = Path(path if path is not None else DB_PATH)
         self.clock = clock
+
+    def _open(self):
+        if self.remote_url:
+            from app.libsql_store import Connection
+
+            return Connection(self.remote_url, self.remote_token)
+        db = sqlite3.connect(self.path, timeout=12)
+        db.row_factory = sqlite3.Row
+        return db
 
     @contextmanager
     def connect(self, write=False):
-        db = sqlite3.connect(self.path, timeout=12)
-        db.row_factory = sqlite3.Row
-        db.execute("PRAGMA foreign_keys = ON")
+        db = self._open()
         try:
+            db.execute("PRAGMA foreign_keys = ON")
             db.execute("BEGIN IMMEDIATE" if write else "BEGIN")
-            with db:
+            try:
                 yield db
+                db.commit()
+            except BaseException:
+                db.rollback()
+                raise
         finally:
             db.close()
 
     def initialize(self):
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        db = sqlite3.connect(self.path, timeout=12)
+        if not self.remote_url:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+        db = self._open()
         try:
-            db.execute("PRAGMA journal_mode = WAL")
+            if not self.remote_url:
+                db.execute("PRAGMA journal_mode = WAL")
             db.executescript(SCHEMA)
         finally:
             db.close()

@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 .env
+.env.*
+.vercel/
 .DS_Store
 history/*.json
 !history/.gitkeep

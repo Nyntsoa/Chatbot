@@ -20,6 +20,10 @@ Ouvrez [GuideBot sur le port 8501](http://127.0.0.1:8501). Au premier lancement 
 | Gestionnaire pédagogique | Préparation des procédures et calendriers, suivi des demandes de son périmètre et tableau de bord |
 | Administrateur | Comptes, toutes les versions, publication, archivage, validation des réponses et configuration des services |
 
+## Déploiement Vercel
+
+Sélectionnez le preset **Container** avec Fluid Compute. `Dockerfile.vercel` démarre Streamlit sur le port fourni par Vercel et lance Ollama dans le même conteneur. Connectez une base [Turso](https://vercel.com/marketplace/tursocloud/database) au projet pour fournir `TURSO_DATABASE_URL` et `TURSO_AUTH_TOKEN`. Exécutez `python -m app.manage setup` dans un terminal configuré avec ces variables pour créer le premier administrateur de cette base. Les fichiers `data/` de l’installation locale sont exclus du déploiement.
+
 ## Classes et invitations
 
 Sur l’écran d’accueil, **Créer un compte administrateur** est accessible sans code et ouvre un espace indépendant. Les documents, comptes étudiants, demandes et réglages de cet espace sont séparés de ceux des autres administrateurs.
