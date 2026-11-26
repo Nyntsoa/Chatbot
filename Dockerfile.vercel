@@ -33,4 +33,4 @@ COPY --from=models /tmp/ollama-cpu/ /usr/lib/ollama/
 COPY --from=models /opt/guidebot-models/ /opt/guidebot-models/
 
 EXPOSE 3000
-CMD ["sh", "-c", "ollama serve & exec python -m streamlit run app/main.py --server.address=0.0.0.0 --server.port=${PORT:-3000} --server.runOnSave=false --server.fileWatcherType=none"]
+CMD ["sh", "-c", "ollama serve & exec python -m streamlit run app/main.py --server.address=0.0.0.0 --server.port=${PORT:-3000} --server.runOnSave=false --server.fileWatcherType=none --server.maxUploadSize=4"]

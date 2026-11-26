@@ -353,7 +353,7 @@ def discussion_context(store, user):
         )
         if scope != "school":
             st.caption(
-                "La requête de recherche est envoyée à des moteurs publics. L’historique et les documents restent sur cette machine."
+                "Les moteurs publics reçoivent uniquement la requête de recherche."
             )
         classroom = None
         if classrooms:
