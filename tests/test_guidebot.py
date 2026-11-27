@@ -3,7 +3,7 @@ import unittest
 from datetime import date, datetime
 from io import BytesIO
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from pypdf import PdfReader
 from reportlab.pdfgen import canvas
@@ -12,6 +12,7 @@ from app.exports import reminder_file, response_pdf
 from app.knowledge import (
     EMBEDDING_MODEL,
     Result,
+    _ollama_json,
     answer_question,
     interpretation,
     parse_document,
@@ -22,11 +23,15 @@ from app.store import Store
 TODAY = date(2026, 11, 25)
 START, END = "2026-09-01", "2027-08-31"
 PASSWORD = "GuideBot QA 2026!"
+CONNECTED_WEB = {"GUIDEBOT_MODE": "connected", "GUIDEBOT_WEB_SEARCH": "1"}
 
 
 class GuideBotTests(unittest.TestCase):
     def test_research_keeps_school_local_and_tries_web_again_on_weak_results(self):
-        with patch("app.research.public_results") as engine:
+        with (
+            patch.dict("os.environ", CONNECTED_WEB),
+            patch("app.research.public_results") as engine,
+        ):
             local = run_research(
                 self.store, self.student, "Quelle est la durée du stage ?", "school"
             )
@@ -72,7 +77,10 @@ class GuideBotTests(unittest.TestCase):
             "source": "Journal local",
         }
         question = "Quand remettre le rapport de stage ?"
-        with patch("app.research.public_results", return_value=[public]) as engine:
+        with (
+            patch.dict("os.environ", CONNECTED_WEB),
+            patch("app.research.public_results", return_value=[public]) as engine,
+        ):
             research = run_research(
                 self.store,
                 self.student,
@@ -139,7 +147,7 @@ class GuideBotTests(unittest.TestCase):
                 ).endswith("[1]")
             )
         with (
-            patch.dict("os.environ", {"GUIDEBOT_WEB_SEARCH": "0"}),
+            patch.dict("os.environ", {**CONNECTED_WEB, "GUIDEBOT_WEB_SEARCH": "0"}),
             patch("app.research.public_results") as engine,
         ):
             research = run_research(
@@ -147,6 +155,72 @@ class GuideBotTests(unittest.TestCase):
             )
             self.assertEqual(research.web_state, "disabled")
             engine.assert_not_called()
+
+    def test_local_mode_ignores_remote_settings(self):
+        with (
+            patch.dict(
+                "os.environ",
+                {
+                    "GUIDEBOT_MODE": "local",
+                    "GUIDEBOT_WEB_SEARCH": "1",
+                    "GUIDEBOT_REQUIRE_REMOTE_DB": "1",
+                    "TURSO_DATABASE_URL": "libsql://example.invalid",
+                    "TURSO_AUTH_TOKEN": "unused",
+                },
+            ),
+            patch("app.research.public_results") as engine,
+        ):
+            self.assertIsNone(Store().remote_url)
+            self.assertEqual(
+                search_public("Quand déposer le rapport ?"), ([], "disabled", 0)
+            )
+            engine.assert_not_called()
+
+    def test_local_explanation_requires_citations_and_complete_sources(self):
+        result = Result("", "sourced", [{"text": "Le stage dure 6 semaines."}])
+        for response in (
+            '{"answer":"6 semaines","references":[]}',
+            '{"answer":"6 semaines","references":[2]}',
+            '{"answer":"6 semaines [2]","references":[1]}',
+            '{"answer":"INFORMATION_INSUFFISANTE","references":[]}',
+        ):
+            with patch("app.knowledge._ollama_json", return_value={"response": response}):
+                with self.assertRaises(ValueError):
+                    interpretation("Combien de temps dure le stage ?", result, "fr")
+        with patch(
+            "app.knowledge._ollama_json",
+            return_value={"response": '{"answer":"6 semaines","references":[1]}'},
+        ):
+            self.assertEqual(
+                interpretation("Combien de temps dure le stage ?", result, "fr"),
+                "6 semaines\n\n[1]",
+            )
+        with patch("app.knowledge._ollama_json") as generate:
+            with self.assertRaises(ValueError):
+                interpretation(
+                    "Combien de temps dure le stage ?", Result("", "partial"), "fr"
+                )
+            generate.assert_not_called()
+
+    def test_remote_ollama_model_never_receives_question(self):
+        with patch("app.knowledge.requests.Session") as session_factory:
+            session = session_factory.return_value.__enter__.return_value
+            metadata = Mock(is_redirect=False)
+            metadata.json.return_value = {
+                "details": {"format": "gguf"},
+                "remote_host": "https://ollama.com",
+            }
+            session.post.return_value = metadata
+            with self.assertRaises(ValueError):
+                _ollama_json(
+                    "generate", {"model": "alias", "prompt": "Question privée"}, 10
+                )
+            session.post.assert_called_once_with(
+                "http://127.0.0.1:11434/api/show",
+                json={"model": "alias"},
+                timeout=(3, 10),
+                allow_redirects=False,
+            )
 
     def test_onboarding_is_pending_only_until_acknowledged(self):
         self.assertTrue(self.store.needs_onboarding(self.student))

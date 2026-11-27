@@ -6,6 +6,7 @@ import streamlit as st
 
 from app.admin import render_admin, render_classes
 from app.appearance import THEME_LABELS, theme_markup
+from app.config import connected_mode
 from app.knowledge import folder_signature, seed_documents
 from app.onboarding import render_onboarding
 from app.store import ROLES, ROOT, Store
@@ -19,7 +20,7 @@ from app.student import (
 
 LOGO = ROOT / "images" / "GuideBot.png"
 STYLES = ROOT / "app" / "interface.css"
-SCHOOL_ISSUER = os.getenv("GUIDEBOT_SCHOOL_ISSUER")
+SCHOOL_ISSUER = os.getenv("GUIDEBOT_SCHOOL_ISSUER") if connected_mode() else None
 
 
 @st.cache_resource(show_spinner=False, max_entries=2)

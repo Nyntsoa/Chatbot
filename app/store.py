@@ -10,6 +10,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from app.appearance import SYSTEM_THEME, THEME_LABELS
+from app.config import connected_mode
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = Path(os.environ.get("GUIDEBOT_DB", ROOT / "data" / "guidebot.sqlite3"))
@@ -198,9 +199,10 @@ def validate_account(username, password):
 
 class Store:
     def __init__(self, path=None, clock=date.today):
-        self.remote_url = os.getenv("TURSO_DATABASE_URL") if path is None else None
+        remote_allowed = path is None and connected_mode()
+        self.remote_url = os.getenv("TURSO_DATABASE_URL") if remote_allowed else None
         self.remote_token = os.getenv("TURSO_AUTH_TOKEN") if self.remote_url else None
-        needs_remote = path is None and os.getenv("GUIDEBOT_REQUIRE_REMOTE_DB") == "1"
+        needs_remote = remote_allowed and os.getenv("GUIDEBOT_REQUIRE_REMOTE_DB") == "1"
         if (needs_remote or self.remote_url) and not (
             self.remote_url and self.remote_token
         ):

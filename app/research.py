@@ -10,6 +10,7 @@ import requests
 from ddgs import DDGS
 from ddgs.exceptions import DDGSException
 
+from app.config import connected_mode
 from app.knowledge import Result, answer_question, normalized, words
 
 SCOPES = {
@@ -23,7 +24,7 @@ NEWS_QUERY = re.compile(
 
 
 def web_enabled():
-    return os.getenv("GUIDEBOT_WEB_SEARCH", "1") != "0"
+    return connected_mode() and os.getenv("GUIDEBOT_WEB_SEARCH", "0") == "1"
 
 
 @dataclass
@@ -156,6 +157,8 @@ def press_headlines(query):
 
 
 def search_public(question, *, deepen=False):
+    if not web_enabled():
+        return [], "disabled", 0
     query = search_query(question)
     tokens = words(query)
     if not tokens:
@@ -250,12 +253,9 @@ def run_research(
     output = Research(result, scope)
     if scope == "school":
         return output
-    if not web_enabled():
-        output.web_state = "disabled"
-    else:
-        output.web_sources, output.web_state, output.web_queries = search_public(
-            question, deepen=deepen
-        )
+    output.web_sources, output.web_state, output.web_queries = search_public(
+        question, deepen=deepen
+    )
     if output.web_sources:
         offset = len(result.sources)
         excerpts = "\n\n".join(

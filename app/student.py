@@ -7,7 +7,7 @@ import requests
 import streamlit as st
 
 from app.exports import reminder_file, response_pdf, source_label
-from app.knowledge import Result, infer_domain, interpretation
+from app.knowledge import Result, followup, infer_domain, interpretation
 from app.research import SCOPES, followup_questions, run_research, web_enabled
 from app.store import DOMAINS
 
@@ -264,6 +264,26 @@ def render_sources(store, user, turn):
 
 def answer_actions(store, user, turn, displayed_answer):
     identifier = turn["id"]
+    public = turn.get("web_sources", [])
+    can_explain = (
+        (turn["result"] == "sourced" and turn["sources"])
+        or (turn["result"] in {"sourced", "partial", "web_sourced"} and public)
+    )
+    if can_explain and not turn.get("explanation") and st.button(
+        "Reformuler avec Ollama", key=f"explain_{identifier}"
+    ):
+        result = Result(turn["answer"], turn["result"], turn["sources"])
+        try:
+            with st.spinner("Préparation de la reformulation…"):
+                explanation = interpretation(
+                    turn["question"], result, turn["language"], public
+                )
+                store.save_explanation(user, identifier, explanation)
+            st.rerun()
+        except (requests.RequestException, ValueError, OSError, KeyError):
+            st.warning(
+                "La reformulation locale est indisponible. Les sources restent consultables."
+            )
     with st.expander("Actions sur la réponse"):
         st.caption("Copier le texte")
         st.code(displayed_answer, language=None, wrap_lines=True)
@@ -318,28 +338,6 @@ def answer_actions(store, user, turn, displayed_answer):
                 except ValueError as error:
                     st.info(str(error))
 
-        public = turn.get("web_sources", [])
-        if turn["result"] in {"sourced", "partial", "web_sourced"} and (
-            turn["sources"] or public
-        ):
-            explanation = turn.get("explanation")
-            if not explanation and st.button(
-                "Obtenir une explication avec Ollama", key=f"explain_{identifier}"
-            ):
-                result = Result(turn["answer"], turn["result"], turn["sources"])
-                try:
-                    with st.spinner("Préparation de l’explication…"):
-                        explanation = interpretation(
-                            turn["question"], result, turn["language"], public
-                        )
-                        store.save_explanation(user, identifier, explanation)
-                    st.rerun()
-                except (requests.RequestException, ValueError, OSError, KeyError):
-                    st.warning(
-                        "L’explication locale est indisponible. Les sources restent consultables."
-                    )
-                    explanation = None
-
 
 def discussion_context(store, user):
     classrooms = {row["id"]: row["name"] for row in store.classrooms(user)}
@@ -384,8 +382,7 @@ def discussion_context(store, user):
             )
             st.caption("Les citations restent dans la langue du document.")
             use_ai = st.checkbox(
-                "Réponse rédigée par l’IA",
-                value=True,
+                "Reformuler automatiquement avec Ollama",
                 key="chat_use_ai",
             )
     return classroom, use_ai, scope
@@ -398,11 +395,8 @@ def discussion_turn(store, user, turn, *, arriving=False):
         if turn["sources"] is None:
             st.warning("Les sources de cette réponse ne sont plus disponibles.")
             return
-        answer = turn.get("explanation") or turn["answer"]
-        label = STATUS_LABELS[turn["result"]]
-        if turn.get("explanation"):
-            label = "Explication de l’IA à partir des sources"
-        st.caption(label)
+        answer = turn["answer"]
+        st.caption(STATUS_LABELS[turn["result"]])
         scope = turn.get("scope") or "school"
         st.caption(f"Périmètre · {SCOPES[scope]}")
         web_state = turn.get("web_state")
@@ -420,9 +414,9 @@ def discussion_turn(store, user, turn, *, arriving=False):
                 }[web_state]
             )
         reading_text(answer, arriving=arriving)
-        if turn.get("explanation"):
-            with st.expander("Extraits à l’origine de la réponse"):
-                reading_text(turn["answer"])
+        if explanation := turn.get("explanation"):
+            with st.expander("Reformulation par Ollama"):
+                reading_text(explanation)
         render_sources(store, user, turn)
         if turn["result"] != "legacy":
             answer_actions(store, user, turn, answer)
@@ -568,11 +562,15 @@ def render_chat(store, user):
             if (
                 use_ai
                 and (result.sources or research.web_sources)
-                and result.status in {"sourced", "partial", "web_sourced"}
+                and result.status in {"sourced", "web_sourced", "partial"}
+                and (result.status != "partial" or research.web_sources)
             ):
                 try:
                     explanation = interpretation(
-                        question, result, language, research.web_sources
+                        followup(question, turns) if scope == "school" else question,
+                        result,
+                        language,
+                        research.web_sources,
                     )
                 except (requests.RequestException, ValueError, OSError, KeyError):
                     st.session_state.warning_notice = "GuideBot affiche les extraits cités en attendant une explication exploitable."
